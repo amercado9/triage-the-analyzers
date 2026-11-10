@@ -13,5 +13,8 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
     <description>PMD quickstart, with Project Pulse's decisions.</description>
     <rule ref="rulesets/java/quickstart.xml">
+        <!-- D4: Project Pulse uses SLF4J parameterized logging and the reported arguments are existing
+             values, simple getters, lengths, or collection sizes. Guards would not avoid meaningful work. -->
+        <exclude name="GuardLogStatement"/>
     </rule>
 </ruleset>

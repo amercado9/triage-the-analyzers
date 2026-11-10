@@ -1,5 +1,6 @@
 package team.projectpulse.evaluation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PeerEvaluationAverage {
@@ -11,13 +12,10 @@ public class PeerEvaluationAverage {
     private String email;
     private String teamName;
     private Double averageTotalScore;
-    private List<String> publicComments;
-    private List<String> privateComments;
-    private List<RatingAverage> ratingAverages;
+    private List<String> publicComments = new ArrayList<>();
+    private List<String> privateComments = new ArrayList<>();
+    private List<RatingAverage> ratingAverages = new ArrayList<>();
 
-
-    public PeerEvaluationAverage() {
-    }
 
     public Integer getStudentId() {
         return studentId;
@@ -76,27 +74,27 @@ public class PeerEvaluationAverage {
     }
 
     public List<String> getPublicComments() {
-        return publicComments;
+        return List.copyOf(publicComments);
     }
 
     public void setPublicComments(List<String> publicComments) {
-        this.publicComments = publicComments;
+        this.publicComments = publicComments == null ? new ArrayList<>() : new ArrayList<>(publicComments);
     }
 
     public List<String> getPrivateComments() {
-        return privateComments;
+        return List.copyOf(privateComments);
     }
 
     public void setPrivateComments(List<String> privateComments) {
-        this.privateComments = privateComments;
+        this.privateComments = privateComments == null ? new ArrayList<>() : new ArrayList<>(privateComments);
     }
 
     public List<RatingAverage> getRatingAverages() {
-        return ratingAverages;
+        return List.copyOf(ratingAverages);
     }
 
     public void setRatingAverages(List<RatingAverage> ratingAverages) {
-        this.ratingAverages = ratingAverages;
+        this.ratingAverages = ratingAverages == null ? new ArrayList<>() : new ArrayList<>(ratingAverages);
     }
 
 }

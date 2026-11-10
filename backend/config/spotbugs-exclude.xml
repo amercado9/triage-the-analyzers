@@ -7,4 +7,30 @@
 
      Unlike the baseline, this file may grow, but every entry is a reviewed decision. -->
 <FindBugsFilter>
+    <!-- D1: JPA entities intentionally retain and expose persistence-managed relationships. Copies would
+         detach callers from Hibernate's managed object graph and break the in-place association updates used
+         throughout the services and entity convenience methods. -->
+    <Match>
+        <Annotation name="jakarta.persistence.Entity"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- D1: Spring components intentionally retain the shared dependencies supplied by the container. -->
+    <Match>
+        <Or>
+            <Annotation name="org.springframework.stereotype.Component"/>
+            <Annotation name="org.springframework.stereotype.Controller"/>
+            <Annotation name="org.springframework.stereotype.Service"/>
+            <Annotation name="org.springframework.web.bind.annotation.RestController"/>
+            <Annotation name="org.springframework.context.annotation.Configuration"/>
+        </Or>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- D1: Spring Security's UserDetails adapter must retain and return the authenticated domain user;
+         copying a JPA entity is neither meaningful nor supported. -->
+    <Match>
+        <Class name="team.projectpulse.user.MyUserPrincipal"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>

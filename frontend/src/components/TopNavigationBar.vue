@@ -70,8 +70,18 @@ const tokenStore = useTokenStore()
 const userInfoStore = useUserInfoStore()
 const settingsStore = useSettingsStore()
 
-import { inject } from 'vue'
-const { isCollapse, toggleCollapse } = inject('menuCollapse')
+import { inject, type Ref } from 'vue'
+
+type MenuCollapse = {
+  isCollapse: Ref<boolean>
+  toggleCollapse: () => void
+}
+
+const menuCollapse = inject<MenuCollapse>('menuCollapse')
+if (!menuCollapse) {
+  throw new Error('TopNavigationBar requires the menuCollapse provider')
+}
+const { isCollapse, toggleCollapse } = menuCollapse
 
 const refresh = () => {
   router.go(0)

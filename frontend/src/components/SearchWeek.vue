@@ -90,8 +90,9 @@ onMounted(async () => {
 
   if (allWeeks.value.length > 0) {
     // allWeeks is sorted by weekNumber, so the first and last weeks are the first and last elements
-    firstWeek.value = allWeeks.value[0]
-    lastWeek.value = allWeeks.value[allWeeks.value.length - 1]
+    // Safe: the positive-length check proves index 0 and length - 1 exist.
+    firstWeek.value = allWeeks.value[0]!
+    lastWeek.value = allWeeks.value[allWeeks.value.length - 1]!
   }
 })
 
@@ -135,7 +136,8 @@ const findWeekIndex = () => {
 const goToPreviousWeek = () => {
   const index = findWeekIndex()
   if (index > 0) {
-    selectedWeekNumber.value = allWeeks.value[index - 1].weekNumber
+    // Safe: an existing index greater than zero always has a preceding element.
+    selectedWeekNumber.value = allWeeks.value[index - 1]!.weekNumber
     emit('search')
   }
 }
@@ -143,7 +145,8 @@ const goToPreviousWeek = () => {
 const goToNextWeek = () => {
   const index = findWeekIndex()
   if (index >= 0 && index < allWeeks.value.length - 1) {
-    selectedWeekNumber.value = allWeeks.value[index + 1].weekNumber
+    // Safe: the found week is before the final element, so index + 1 exists.
+    selectedWeekNumber.value = allWeeks.value[index + 1]!.weekNumber
     emit('search')
   }
 }
